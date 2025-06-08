@@ -5,7 +5,7 @@ export class Bot {
   async GetMessage(req: Request, res: Response) {
     const apiKey = process.env.API;
 
-    const prompt = req.body.message;
+    const prompt = req.body.messages;
     if (!prompt) {
       res.status(404).json({ message: "Envie alguma mensagem!", success: false, })
       return;
@@ -18,10 +18,7 @@ export class Bot {
       },
       body: JSON.stringify({
         model: "gpt-3.5-turbo",
-        messages: [
-          { role: "user", content: prompt }
-        ],
-        temperature: 0.7
+        messages:prompt,
       })
     })
       .then(response => response.json())
